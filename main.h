@@ -1,3 +1,6 @@
+#ifndef MAIN.H
+#define MAIN.H
+
 #include <limits.h>
 #include <stdarg.h>
 #include <stdlib.h>
