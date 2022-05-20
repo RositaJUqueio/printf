@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 #ifndef MAIN_H
 #define MAIN_H
+=======
+#ifndef MAIN.H
+#define MAIN.H
+>>>>>>> 583b5633437203be08fd0955c71833f1006f4e1c
 
 #include <limits.h>
 #include <stdarg.h>
