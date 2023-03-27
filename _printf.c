@@ -25,7 +25,7 @@ int _printf(const char *format, ...)
 			{
 				case 'c': /* handle char */
 					i++;
-					count += write(1, (char *)&va_arg(args, int), 1);
+					count += print_c(args);
 					break;
 				case 's': /* handle string */
 					i++;
@@ -42,7 +42,7 @@ int _printf(const char *format, ...)
 				case 'd': /* handle signed int */
 				case 'i':
 					i++;
-					count += print_number(args);
+					count += print_number(args, format[i]);
 					break;
 				default: /* handle unknown specifier */
 					i++;
@@ -57,3 +57,16 @@ int _printf(const char *format, ...)
 	return (count); /* return total character count */
 }
 
+/**
+ * print_c - prints a single character to stdout
+ * @args: va_list pointing to the character to print
+ * @buffer: unused buffer parameter (required by struct print_func)
+ *
+ * Return: the number of character written to stdout
+ */
+int print_c(va_list args)
+{
+	char c = va_arg(args, int);
+
+	return (write(1, &c, 1));
+}
