@@ -2,13 +2,13 @@
 
 #include "main.h"
 /* for variable argument lists and  write function */
-#include <unistd.h> 
+#include <unistd.h>
 #include <stdarg.h>
 
 /**
  * _printf - prints output according to a format
  * @format: the format string to be printed
- * 
+ *
  * Return: the number of characters printed (excluding the null byte used
  * to end output to strings), or -1 if an error occurred
  */
@@ -18,8 +18,7 @@ int _printf(const char *format, ...)
 	int i, count = 0;
 	char *str;
 
-	va_start(args, format);
-      	/* initialize the va_list */
+	va_start(args, format);/* initialize the va_list */
 
 	/* loop through the format string */
 	for (i = 0; format && format[i]; i++)
