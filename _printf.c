@@ -68,3 +68,57 @@ int _strlen(char *s)
 
 	return (i);
 }
+
+/* extendig code to meet task 1 requirments */
+
+/**
+ * print_number - prints a number
+ * @args: the va_list containing the number to be printed
+ * @specifier: the conversion specifier (either 'd' or 'i')
+ *
+ * Return: the number of characters printed
+ */
+int print_number(va_list args, char specifier)
+{
+	int num = va_arg(args, int);
+	int is_negative = 0, count = 0;
+
+	if (num < 0)
+	{
+		is_negative = 1;
+		num = -num;
+	}
+
+	if (num == 0)
+	{
+		count += write(1, "0", 1);
+		return (count);
+	}
+
+	if (is_negative)
+		count += write(1, "-", 1);
+
+	count += print_number_recursive(num);
+
+	return (count);
+}
+
+/**
+ * print_number_recursive - recursively prints a number
+ * @num: the number to be printed
+ *
+ * Return: the number of characters printed
+ */
+int print_number_recursive(int num)
+{
+	int count = 0;
+
+	if (num == 0)
+		return (0);
+
+	count += print_number_recursive(num / 10);
+
+	count += write(1, &"0123456789"[num % 10], 1);
+
+	return (count);
+}
