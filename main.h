@@ -7,7 +7,7 @@
 
 /* prototypes will go here */
 int _printf(const char *format, ...);
-int _strlen(char *s)
+int _strlen(char *s);
 
 #endif
 

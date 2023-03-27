@@ -1,9 +1,6 @@
 /* Authors: Aliyu Adekola and Rosita J Uqueio */
 
 #include "main.h"
-/* for variable argument lists and  write function */
-#include <unistd.h>
-#include <stdarg.h>
 
 /**
  * _printf - prints output according to a format
