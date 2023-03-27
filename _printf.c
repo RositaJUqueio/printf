@@ -26,7 +26,7 @@ int _printf(const char *format, ...)
 			{
 				case 'c': /* char */
 					i++;
-					count += write(1, &va_arg(args, int), 1);
+					count += write(1, (char *)&va_arg(args, int), 1);
 					break;
 				case 's': /* string */
 					i++;
@@ -78,7 +78,7 @@ int _strlen(char *s)
  *
  * Return: the number of characters printed
  */
-int print_number(va_list args, char specifier)
+int print_number(va_list args)
 {
 	int num = va_arg(args, int);
 	int is_negative = 0, count = 0;

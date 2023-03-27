@@ -12,5 +12,8 @@ int print_char(va_list args, char specifier);
 int print_string(va_list args, char specifier);
 int print_percent(va_list args, char specifier);
 int print_number(va_list args, char specifier);
+int print_number_recursive(int num);
+int print_number(va_list args, char specifier);
 
 #endif /* MAIN_H */
+
