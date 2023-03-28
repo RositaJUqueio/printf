@@ -31,7 +31,7 @@ int _printf(const char *format, ...)
 					break;
 				case 'd':
 				case 'i':
-					count += print_number(args, 'd');
+					count += print_number(args);
 					break;
 				case '%':
 					count += write(1, "%", 1);
@@ -96,23 +96,36 @@ int print_string(va_list args)
 /**
  * print_number - prints an integer to stdout
  * @args: va_list pointing to the integer to print
- *
  * Return: the number of characters written to stdout
  */
-int print_number(va_list args, char specifier)
+int print_number(va_list args)
 {
 	int n = va_arg(args, int);
-	int count = 0;
+	char buffer[20];
+	int i = 0, j, count = 0;
 
 	if (n < 0)
 	{
 		count += write(1, "-", 1);
 		n = -n;
 	}
-	if (n / 10)
+	do {
+		buffer[i] = n % 10 + '0';
+		i++;
+		n /= 10;
+	} while (n);
+	if (i < 2)
 	{
-		count += print_number(args);
+		count += write(1, &buffer[i - 1], 1);
 	}
-	count += write(1, &"0123456789"[n % 10], 1);
+	else
+	{
+		for (j = i - 1; j >= 0; j--)
+		{
+			if (j == i - 1 && buffer[j] == '0')
+				continue;
+			count += write(1, &buffer[j], 1);
+		}
+	}
 	return (count);
 }
