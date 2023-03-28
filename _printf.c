@@ -27,7 +27,7 @@ int _printf(const char *format, ...)
 					count += print_c(args);
 					break;
 				case 's':
-					count += print_number(args, specifier);
+					count += print_string(args);
 					break;
 				case 'd':
 				case 'i':

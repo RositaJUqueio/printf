@@ -14,8 +14,8 @@
  */
 typedef struct print_func
 {
-	int (*f)(va_list, char *);
-	char format;
+        int (*f)(va_list, char *);
+        char format;
 } print_func_t;
 
 /* prototypes */
@@ -25,6 +25,5 @@ int print_number(va_list args, char specifier);
 int _strlen(char *s);
 int print_string(va_list args);
 int print_integer(va_list args, char specifier);
-
 
 #endif /* MAIN_H */
