@@ -11,55 +11,48 @@
  */
 int _printf(const char *format, ...)
 {
-	va_list args; /* declare va_list */
-	int i, count = 0; /* initialize loop counter and character count */
-	char *str; /* declare pointer to a string */
+	va_list args;
+	int count = 0;
+	int i;
 
-	va_start(args, format);/* initialize the va_list */
-	for (i = 0; format && format[i]; i++)/* loop through the format string */
+	va_start(args, format);
+	for (i = 0; format[i]; i++)
 	{
-		if (format[i] == '%') /* handle directive */
+		if (format[i] == '%')
 		{
-			switch (format[i + 1])
+			i++;
+			switch (format[i])
 			{
-				case 'c': /* handle char */
-					i++;
+				case 'c':
 					count += print_c(args);
 					break;
-				case 's': /* handle string */
-					i++;
-					str = va_arg(args, char *);
-					if (str == NULL)
-						count += write(1, "(null)", 6);
-					else
-						count += write(1, str, _strlen(str));
+				case 's':
+					count += print_string(args);
 					break;
-				case '%': /* handle percent sign */
-					i++;
+				case 'd':
+				case 'i':
+					count += print_number(args, 'd');
+					break;
+				case '%':
 					count += write(1, "%", 1);
 					break;
-				case 'd': /* handle signed int */
-				case 'i':
-					i++;
-					count += print_number(args, format[i]);
-					break;
-				default: /* handle unknown specifier */
-					i++;
-					count += write(1, &format[i], 1);
+				default:
+					count += write(1, &format[i - 1], 2);
 					break;
 			}
 		}
-		else /* handle regular character */
+		else
+		{
 			count += write(1, &format[i], 1);
+		}
 	}
-	va_end(args);/* clean up the va_list */
-	return (count); /* return total character count */
+	va_end(args);
+	return (count);
 }
 
 /**
  * print_c - prints a single character to stdout
  * @args: va_list pointing to the character to print
- * @buffer: unused buffer parameter (required by struct print_func)
  *
  * Return: the number of character written to stdout
  */
@@ -69,27 +62,40 @@ int print_c(va_list args)
 
 	return (write(1, &c, 1));
 }
-
 /**
  * _strlen - gets the length of a string
- * @s: the string to get the length of
+ * @str: the string to get the length of
  *
  * Return: the length of the string
  */
-int _strlen(char *s)
+int _strlen(char *str)
 {
-	int len = 0;
+	int i;
 
-		while (*s++)
-			len++;
-
-	return (len);
+	for (i = 0; str[i]; i++)
+		;
+	return (i);
 }
 
 /**
- * print_number - prints a number to stdout
+ * print_string - prints a string to stdout
  * @args: va_list pointing to the number to print
- * @specifier: the specifier character (d or i)
+ *
+ * Return: the number of characters written to stdout
+ */
+int print_string(va_list args)
+{
+	char *str = va_arg(args, char *);
+
+	if (str == NULL)
+	{
+		return (write(1, "(null)", 6));
+	}
+	return (write(1, str, _strlen(str)));
+}
+/**
+ * print_number - prints an integer to stdout
+ * @args: va_list pointing to the integer to print
  *
  * Return: the number of characters written to stdout
  */
@@ -104,9 +110,9 @@ int print_number(va_list args, char specifier)
 		n = -n;
 	}
 	if (n / 10)
-		count += print_number(args, specifier);
-
+	{
+		count += print_number(args);
+	}
 	count += write(1, &"0123456789"[n % 10], 1);
-
 	return (count);
 }
