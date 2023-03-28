@@ -27,11 +27,11 @@ int _printf(const char *format, ...)
 					count += print_c(args);
 					break;
 				case 's':
-					count += print_string(args);
+					count += print_number(args, specifier);
 					break;
 				case 'd':
 				case 'i':
-					count += print_number(args, 'd');
+					count += print_number(args, format[i]);
 					break;
 				case '%':
 					count += write(1, "%", 1);
