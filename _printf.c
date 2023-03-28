@@ -16,7 +16,6 @@ int _printf(const char *format, ...)
 	char *str; /* declare pointer to a string */
 
 	va_start(args, format);/* initialize the va_list */
-
 	for (i = 0; format && format[i]; i++)/* loop through the format string */
 	{
 		if (format[i] == '%') /* handle directive */
@@ -69,4 +68,45 @@ int print_c(va_list args)
 	char c = va_arg(args, int);
 
 	return (write(1, &c, 1));
+}
+
+/**
+ * _strlen - gets the length of a string
+ * @s: the string to get the length of
+ *
+ * Return: the length of the string
+ */
+int _strlen(char *s)
+{
+	int len = 0;
+
+		while (*s++)
+			len++;
+
+	return (len);
+}
+
+/**
+ * print_number - prints a number to stdout
+ * @args: va_list pointing to the number to print
+ * @specifier: the specifier character (d or i)
+ *
+ * Return: the number of characters written to stdout
+ */
+int print_number(va_list args, char specifier)
+{
+	int n = va_arg(args, int);
+	int count = 0;
+
+	if (n < 0)
+	{
+		count += write(1, "-", 1);
+		n = -n;
+	}
+	if (n / 10)
+		count += print_number(args, specifier);
+
+	count += write(1, &"0123456789"[n % 10], 1);
+
+	return (count);
 }
