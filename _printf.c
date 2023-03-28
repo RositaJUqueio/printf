@@ -14,7 +14,6 @@ int _printf(const char *format, ...)
 	va_list args;
 	int count = 0;
 	int i;
-	char specifier;
 
 	va_start(args, format);
 	for (i = 0; format[i]; i++)
@@ -32,11 +31,7 @@ int _printf(const char *format, ...)
 					break;
 				case 'd':
 				case 'i':
-<<<<<<< HEAD
-					count += print_number(args, specifier);
-=======
 					count += print_number(args);
->>>>>>> e9d86f29eb9bba347cc1bdd7101d144ad5489f81
 					break;
 				case '%':
 					count += write(1, "%", 1);
@@ -67,6 +62,7 @@ int print_c(va_list args)
 
 	return (write(1, &c, 1));
 }
+
 /**
  * _strlen - gets the length of a string
  * @str: the string to get the length of
@@ -98,16 +94,14 @@ int print_string(va_list args)
 	}
 	return (write(1, str, _strlen(str)));
 }
+
 /**
  * print_number - prints an integer to stdout
  * @args: va_list pointing to the integer to print
+ *
  * Return: the number of characters written to stdout
  */
-<<<<<<< HEAD
-int print_number(va_list args, __attribute__((unused)) char specifier)
-=======
 int print_number(va_list args)
->>>>>>> e9d86f29eb9bba347cc1bdd7101d144ad5489f81
 {
 	int n = va_arg(args, int);
 	char buffer[20];
@@ -129,16 +123,13 @@ int print_number(va_list args)
 	}
 	else
 	{
-<<<<<<< HEAD
-		count += print_number(va_list args, __attribute__((unused)) char specifier);
-=======
 		for (j = i - 1; j >= 0; j--)
 		{
 			if (j == i - 1 && buffer[j] == '0')
 				continue;
 			count += write(1, &buffer[j], 1);
 		}
->>>>>>> e9d86f29eb9bba347cc1bdd7101d144ad5489f81
 	}
 	return (count);
 }
+

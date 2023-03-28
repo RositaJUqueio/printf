@@ -26,10 +26,4 @@ int print_number(va_list args);
 int _strlen(char *str);
 
 
-/* Additional prototypes for conversion specifiers */
-void print_binary(unsigned int num);
-int print_binary_specifier(va_list args);
-int my_printf(const char *format, ...);
-
-
 #endif /* MAIN_H */
