@@ -14,6 +14,7 @@ int _printf(const char *format, ...)
 	va_list args;
 	int count = 0;
 	int i;
+	char specifier;
 
 	va_start(args, format);
 	for (i = 0; format[i]; i++)
@@ -31,7 +32,7 @@ int _printf(const char *format, ...)
 					break;
 				case 'd':
 				case 'i':
-					count += print_number(args, format[i]);
+					count += print_number(args, specifier);
 					break;
 				case '%':
 					count += write(1, "%", 1);
@@ -99,7 +100,7 @@ int print_string(va_list args)
  *
  * Return: the number of characters written to stdout
  */
-int print_number(va_list args, char specifier)
+int print_number(va_list args, __attribute__((unused)) char specifier)
 {
 	int n = va_arg(args, int);
 	int count = 0;
@@ -111,7 +112,7 @@ int print_number(va_list args, char specifier)
 	}
 	if (n / 10)
 	{
-		count += print_number(args);
+		count += print_number(va_list args, __attribute__((unused)) char specifier);
 	}
 	count += write(1, &"0123456789"[n % 10], 1);
 	return (count);
