@@ -24,6 +24,10 @@ int print_c(va_list args);
 int print_string(va_list args);
 int print_number(va_list args);
 int _strlen(char *str);
-
+int add(int a, int b);
+int subtract(int a, int b);
+int multiply(int a, int b);
+double divide(int a, int b);
+int power(int base, int exponent);
 
 #endif /* MAIN_H */
