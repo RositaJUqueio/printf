@@ -16,7 +16,7 @@ void print_binary(unsigned int num)
 	{
 		print_binary(num / 2);
 	}
-	printf(num % 2 + '0');
+	printf("%c", num % 2 + '0');
 }
 
 /* Function to handle custom conversion specifier 'b'*/
@@ -41,7 +41,7 @@ int print_binary_specifier(va_list args)
 
 	while (divisor != 0)
 	{
-		putchar(num / divisor + '0');
+		putchar(num / divisor % 10 + '0');
 		chars_written++;
 		num %= divisor;
 		divisor /= 10;
@@ -93,7 +93,7 @@ int print_x(va_list args)
 	unsigned int num = va_arg(args, unsigned int);
 	int chars_written = 0;
 	char hex_digits[] = "0123456789abcdef";
-	char hex_num[32];
+	char hex_num[32] = {0};
 	int i = 0;
 
 	while (num != 0)
@@ -147,3 +147,4 @@ int print_X(va_list args)
  * @args: A va_list containing the unsigned int to be printed.
  *
  * Return: The number of characters printed.
+ */
